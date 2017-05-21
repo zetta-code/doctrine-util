@@ -1,0 +1,43 @@
+{
+  "name": "zetta-code/tss-doctrineutil",
+  "type": "library",
+  "description": "TSS/DoctrineUtil",
+  "license": "MIT",
+  "keywords": [
+    "zf3",
+    "tss",
+    "doctrine",
+    "util"
+  ],
+  "homepage": "https://github.com/zetta-code/tss-doctrineutil",
+  "authors": [
+    {
+      "name": "Thiago S. Santos",
+      "email": "thiagos.xsantos@gmail.com",
+      "homepage": "http://thiagossantos.com.br",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "TSS\\DoctrineUtil\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^5.6 || ^7.0",
+    "zendframework/zend-stdlib": "^3.0",
+    "doctrine/doctrine-orm-module": "^1.0",
+    "jenssegers/date": "^3.2",
+    "beberlei/DoctrineExtensions": "^1.0"
+  },
+  "require-dev": {
+  },
+  "extra": {
+    "zf": {
+      "component": "TSS\\DoctrineUtil",
+      "config-provider": "TSS\\DoctrineUtil\\ConfigProvider"
+    }
+  }
+}
