@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2017 Zetta Code
  */
 
-namespace Zetta\DoctrineUtil\Model\Doctrine\DBAL\Driver\PDOMySql;
+namespace Zetta\DoctrineUtil\DBAL\Driver\PDOMySql;
 
 class Driver extends \Doctrine\DBAL\Driver\PDOMySql\Driver
 {
