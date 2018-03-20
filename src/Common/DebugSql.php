@@ -16,7 +16,7 @@ final class DebugSql
     private function __construct()
     {
     }
-    
+
     /**
      * Get query params list
      *
