@@ -1,24 +1,30 @@
 <?php
 /**
- * @link      http://github.com/zetta-repo/zetta-doctrineutil for the canonical source repository
- * @copyright Copyright (c) 2017 Zetta Code
+ * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @copyright Copyright (c) 2018 Zetta Code
  */
 
 namespace Zetta\DoctrineUtil\Types;
 
-use Jenssegers\Date\Date;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\DateType;
+use Jenssegers\Date\Date;
 
 class JenssegersDateType extends DateType
 {
     const JENSSEGERSDATE = 'jenssegersdate';
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return static::JENSSEGERSDATE;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         $result = parent::convertToPHPValue($value, $platform);
@@ -30,6 +36,9 @@ class JenssegersDateType extends DateType
         return $result;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return true;

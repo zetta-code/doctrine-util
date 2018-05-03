@@ -1,10 +1,10 @@
 <?php
 /**
- * @link      http://github.com/zetta-repo/zetta-doctrineutil for the canonical source repository
- * @copyright Copyright (c) 2017 Zetta Code
+ * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @copyright Copyright (c) 2018 Zetta Code
  */
 
-namespace Zetta\Common;
+namespace Zetta\DoctrineUtil\Common;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -26,9 +26,9 @@ final class DebugSql
     private static function getParamsArray($paramObj)
     {
         $parameters = array();
-        foreach ($paramObj as $val){
+        foreach ($paramObj as $val) {
             /* @var $val \Doctrine\ORM\Query\Parameter */
-            $parameters[$val->getName()]=$val->getValue();
+            $parameters[$val->getName()] = $val->getValue();
         }
 
         return $parameters;
@@ -40,46 +40,46 @@ final class DebugSql
      * @param \Doctrine\ORM\Query $query
      * @return string
      */
-    public function getFullSQL($query)
+    public static function getFullSQL($query)
     {
         $sql = $query->getSql();
-        $paramsList = $this->getListParamsByDql($query->getDql());
-        $paramsArr = $this->getParamsArray($query->getParameters());
-        $fullSql='';
-        for($i=0;$i<strlen($sql);$i++){
-            if($sql[$i]=='?'){
-                $nameParam=array_shift($paramsList);
+        $paramsList = self::getListParamsByDql($query->getDql());
+        $paramsArr = self::getParamsArray($query->getParameters());
+        $fullSql = '';
+        for ($i = 0; $i < strlen($sql); $i++) {
+            if ($sql[$i] == '?') {
+                $nameParam = array_shift($paramsList);
 
-                if(is_string ($paramsArr[$nameParam])){
-                    $fullSql.= '"'.addslashes($paramsArr[$nameParam]).'"';
-                }
-                elseif(is_array($paramsArr[$nameParam])){
-                    $sqlArr='';
-                    foreach ($paramsArr[$nameParam] as $var){
-                        if(!empty($sqlArr))
-                            $sqlArr.=',';
+                if (!isset($paramsArr[$nameParam])) {
+                    $fullSql .= ':' . $nameParam;
+                } elseif (is_string($paramsArr[$nameParam])) {
+                    $fullSql .= '"' . addslashes($paramsArr[$nameParam]) . '"';
+                } elseif (is_array($paramsArr[$nameParam])) {
+                    $sqlArr = '';
+                    foreach ($paramsArr[$nameParam] as $var) {
+                        if (!empty($sqlArr))
+                            $sqlArr .= ',';
 
-                        if(is_string($var)){
-                            $sqlArr.='"'.addslashes($var).'"';
-                        }else
-                            $sqlArr.=$var;
+                        if (is_string($var)) {
+                            $sqlArr .= '"' . addslashes($var) . '"';
+                        } else
+                            $sqlArr .= $var;
                     }
-                    $fullSql.=$sqlArr;
-                }elseif(is_object($paramsArr[$nameParam])){
-                    switch(get_class($paramsArr[$nameParam])){
+                    $fullSql .= $sqlArr;
+                } elseif (is_object($paramsArr[$nameParam])) {
+                    switch (get_class($paramsArr[$nameParam])) {
                         case 'DateTime':
-                            $fullSql.= "'".$paramsArr[$nameParam]->format('Y-m-d H:i:s')."'";
+                            $fullSql .= '\'' . $paramsArr[$nameParam]->format('Y-m-d H:i:s') . '\'';
                             break;
                         default:
-                            $fullSql.= $paramsArr[$nameParam]->getId();
+                            $fullSql .= $paramsArr[$nameParam]->getId();
                     }
 
-                }
-                else
-                    $fullSql.= $paramsArr[$nameParam];
+                } else
+                    $fullSql .= $paramsArr[$nameParam];
 
-            }  else {
-                $fullSql.=$sql[$i];
+            } else {
+                $fullSql .= $sql[$i];
             }
         }
         return $fullSql;
@@ -91,16 +91,16 @@ final class DebugSql
      */
     public static function getListParamsByDql($dql)
     {
-        $parsedDql = preg_split("/:/", $dql);
+        $parsedDql = preg_split('/:/', $dql);
         $length = count($parsedDql);
-        $parmeters = array();
-        for($i=1;$i<$length;$i++){
-            if(ctype_alpha($parsedDql[$i][0])){
-                $param = (preg_split("/[' ' )]/", $parsedDql[$i]));
-                $parmeters[] = $param[0];
+        $parameters = array();
+        for ($i = 1; $i < $length; $i++) {
+            if (ctype_alpha($parsedDql[$i][0])) {
+                $param = (preg_split('/[\' \' )]/', $parsedDql[$i]));
+                $parameters[] = $param[0];
             }
         }
 
-        return $parmeters;
+        return $parameters;
     }
 }

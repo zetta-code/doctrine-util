@@ -1,7 +1,7 @@
 <?php
 /**
- * @link      http://github.com/zetta-repo/zetta-doctrineutil for the canonical source repository
- * @copyright Copyright (c) 2017 Zetta Code
+ * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @copyright Copyright (c) 2018 Zetta Code
  */
 
 namespace Zetta\DoctrineUtil\DBAL;
@@ -9,7 +9,6 @@ namespace Zetta\DoctrineUtil\DBAL;
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Configuration;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver;
 use Exception;
 
