@@ -20,18 +20,19 @@ abstract class AbstractEntity
     /**
      * @var Date
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     protected $createdAt;
 
     /**
      * @var Date
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     protected $updatedAt;
 
     /**
+     * Get the AbstractEntity createdAt
      * @return Date
      */
     public function getCreatedAt()
@@ -40,8 +41,9 @@ abstract class AbstractEntity
     }
 
     /**
+     * Set the AbstractEntity createdAt
      * @param Date $createdAt
-     * @return $this
+     * @return AbstractEntity
      */
     public function setCreatedAt($createdAt)
     {
@@ -50,6 +52,7 @@ abstract class AbstractEntity
     }
 
     /**
+     * Get the AbstractEntity updatedAt
      * @return Date
      */
     public function getUpdatedAt()
@@ -58,8 +61,9 @@ abstract class AbstractEntity
     }
 
     /**
+     * Set the AbstractEntity updatedAt
      * @param Date $updatedAt
-     * @return $this
+     * @return AbstractEntity
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -69,18 +73,22 @@ abstract class AbstractEntity
 
     /**
      * @ORM\PrePersist
+     * @return AbstractEntity
      */
     public function createdAt()
     {
         $this->createdAt = Date::now();
         $this->updatedAt = $this->createdAt;
+        return $this;
     }
 
     /**
      * @ORM\PreUpdate
+     * @return AbstractEntity
      */
     public function updateAt()
     {
         $this->updatedAt = Date::now();
+        return $this;
     }
 }
