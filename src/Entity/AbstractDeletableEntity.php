@@ -15,14 +15,68 @@ use Jenssegers\Date\Date;
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-abstract class AbstractDeletableEntity extends AbstractEntity
+abstract class AbstractDeletableEntity
 {
+    /**
+     * @var Date
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var Date
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    protected $updatedAt;
+
     /**
      * @var Date
      *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     protected $deletedAt;
+
+    /**
+     * Get the AbstractDeletableEntity createdAt
+     * @return Date
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set the AbstractDeletableEntity createdAt
+     * @param Date $createdAt
+     * @return AbstractDeletableEntity
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * Get the AbstractDeletableEntity updatedAt
+     * @return Date
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set the AbstractDeletableEntity updatedAt
+     * @param Date $updatedAt
+     * @return AbstractDeletableEntity
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
 
     /**
      * Get the AbstractEntityWithDelete deletedAt
@@ -45,6 +99,27 @@ abstract class AbstractDeletableEntity extends AbstractEntity
     }
 
     /**
+     * @ORM\PrePersist
+     * @return AbstractDeletableEntity
+     */
+    public function createdAt()
+    {
+        $this->createdAt = Date::now();
+        $this->updatedAt = $this->createdAt;
+        return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     * @return AbstractDeletableEntity
+     */
+    public function updateAt()
+    {
+        $this->updatedAt = Date::now();
+        return $this;
+    }
+
+    /**
      * @return AbstractDeletableEntity
      */
     public function deletedAt()
@@ -54,9 +129,10 @@ abstract class AbstractDeletableEntity extends AbstractEntity
     }
 
     /**
+     * Is the AbstractEntityWithDelete deletedAt
      * @return bool
      */
-    public function isActive()
+    public function isDeletedAt()
     {
         return $this->deletedAt === null;
     }

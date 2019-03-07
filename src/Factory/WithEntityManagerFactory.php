@@ -4,14 +4,17 @@
  * @copyright Copyright (c) 2018 Zetta Code
  */
 
-namespace Zetta\DoctrineUtil\Controller\Service;
+namespace Zetta\DoctrineUtil\Factory;
 
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ControllerWithEntityManagerFactory implements FactoryInterface
+class WithEntityManagerFactory implements FactoryInterface
 {
+    /**
+     * @inheritDoc
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $entityManager = $container->get(EntityManager::class);
