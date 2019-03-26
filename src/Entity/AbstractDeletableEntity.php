@@ -134,6 +134,6 @@ abstract class AbstractDeletableEntity
      */
     public function isDeletedAt()
     {
-        return $this->deletedAt === null;
+        return $this->deletedAt !== null;
     }
 }
