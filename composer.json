@@ -28,7 +28,7 @@
     "php": "^7.2",
     "zendframework/zend-stdlib": "^3.2",
     "doctrine/doctrine-orm-module": "^2.1",
-    "jenssegers/date": "^3.5",
+    "nesbot/carbon": "^2.28",
     "beberlei/doctrineextensions": "^1.2"
   },
   "require-dev": {
