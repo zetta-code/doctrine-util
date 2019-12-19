@@ -6,8 +6,8 @@
 
 namespace Zetta\DoctrineUtil\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
-use Jenssegers\Date\Date;
 
 /**
  * AbstractEntity
@@ -18,14 +18,14 @@ use Jenssegers\Date\Date;
 abstract class AbstractEntity
 {
     /**
-     * @var Date
+     * @var Carbon
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     protected $createdAt;
 
     /**
-     * @var Date
+     * @var Carbon
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
@@ -33,7 +33,7 @@ abstract class AbstractEntity
 
     /**
      * Get the AbstractEntity createdAt
-     * @return Date
+     * @return Carbon
      */
     public function getCreatedAt()
     {
@@ -42,7 +42,7 @@ abstract class AbstractEntity
 
     /**
      * Set the AbstractEntity createdAt
-     * @param Date $createdAt
+     * @param Carbon $createdAt
      * @return AbstractEntity
      */
     public function setCreatedAt($createdAt)
@@ -53,7 +53,7 @@ abstract class AbstractEntity
 
     /**
      * Get the AbstractEntity updatedAt
-     * @return Date
+     * @return Carbon
      */
     public function getUpdatedAt()
     {
@@ -62,7 +62,7 @@ abstract class AbstractEntity
 
     /**
      * Set the AbstractEntity updatedAt
-     * @param Date $updatedAt
+     * @param Carbon $updatedAt
      * @return AbstractEntity
      */
     public function setUpdatedAt($updatedAt)
@@ -77,7 +77,7 @@ abstract class AbstractEntity
      */
     public function createdAt()
     {
-        $this->createdAt = Date::now();
+        $this->createdAt = Carbon::now();
         $this->updatedAt = $this->createdAt;
         return $this;
     }
@@ -88,7 +88,7 @@ abstract class AbstractEntity
      */
     public function updateAt()
     {
-        $this->updatedAt = Date::now();
+        $this->updatedAt = Carbon::now();
         return $this;
     }
 }

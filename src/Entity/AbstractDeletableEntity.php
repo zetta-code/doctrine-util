@@ -6,8 +6,8 @@
 
 namespace Zetta\DoctrineUtil\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
-use Jenssegers\Date\Date;
 
 /**
  * AbstractDeletableEntity
@@ -18,21 +18,21 @@ use Jenssegers\Date\Date;
 abstract class AbstractDeletableEntity
 {
     /**
-     * @var Date
+     * @var Carbon
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     protected $createdAt;
 
     /**
-     * @var Date
+     * @var Carbon
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     protected $updatedAt;
 
     /**
-     * @var Date
+     * @var Carbon
      *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
@@ -40,7 +40,7 @@ abstract class AbstractDeletableEntity
 
     /**
      * Get the AbstractDeletableEntity createdAt
-     * @return Date
+     * @return Carbon
      */
     public function getCreatedAt()
     {
@@ -49,7 +49,7 @@ abstract class AbstractDeletableEntity
 
     /**
      * Set the AbstractDeletableEntity createdAt
-     * @param Date $createdAt
+     * @param Carbon $createdAt
      * @return AbstractDeletableEntity
      */
     public function setCreatedAt($createdAt)
@@ -60,7 +60,7 @@ abstract class AbstractDeletableEntity
 
     /**
      * Get the AbstractDeletableEntity updatedAt
-     * @return Date
+     * @return Carbon
      */
     public function getUpdatedAt()
     {
@@ -69,7 +69,7 @@ abstract class AbstractDeletableEntity
 
     /**
      * Set the AbstractDeletableEntity updatedAt
-     * @param Date $updatedAt
+     * @param Carbon $updatedAt
      * @return AbstractDeletableEntity
      */
     public function setUpdatedAt($updatedAt)
@@ -80,7 +80,7 @@ abstract class AbstractDeletableEntity
 
     /**
      * Get the AbstractEntityWithDelete deletedAt
-     * @return Date
+     * @return Carbon
      */
     public function getDeletedAt()
     {
@@ -89,7 +89,7 @@ abstract class AbstractDeletableEntity
 
     /**
      * Set the AbstractEntityWithDelete deletedAt
-     * @param Date $deletedAt
+     * @param Carbon $deletedAt
      * @return AbstractDeletableEntity
      */
     public function setDeletedAt($deletedAt)
@@ -104,7 +104,7 @@ abstract class AbstractDeletableEntity
      */
     public function createdAt()
     {
-        $this->createdAt = Date::now();
+        $this->createdAt = Carbon::now();
         $this->updatedAt = $this->createdAt;
         return $this;
     }
@@ -115,7 +115,7 @@ abstract class AbstractDeletableEntity
      */
     public function updateAt()
     {
-        $this->updatedAt = Date::now();
+        $this->updatedAt = Carbon::now();
         return $this;
     }
 
@@ -124,7 +124,7 @@ abstract class AbstractDeletableEntity
      */
     public function deletedAt()
     {
-        $this->deletedAt = Date::now();
+        $this->deletedAt = Carbon::now();
         return $this;
     }
 
