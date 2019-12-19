@@ -6,10 +6,14 @@
 
 namespace Zetta\DoctrineUtil\DBAL\Driver\PDOMySql;
 
+use Exception;
+
 class Driver extends \Doctrine\DBAL\Driver\PDOMySql\Driver
 {
-
-    public function getReconnectExceptions()
+    /**
+     * @return string[]
+     */
+    public function getReconnectExceptions(): array
     {
         return [
             'SQLSTATE[HY000]: General error: 2006 MySQL server has gone away',
@@ -18,7 +22,11 @@ class Driver extends \Doctrine\DBAL\Driver\PDOMySql\Driver
         ];
     }
 
-    public function shouldStall(\Exception $x)
+    /**
+     * @param Exception $x
+     * @return bool
+     */
+    public function shouldStall(Exception $x): bool
     {
         return stristr($x->getMessage(), 'php_network_getaddresses') !== false;
     }

@@ -69,7 +69,7 @@ class Connection extends \Doctrine\DBAL\Connection
      * @param $attempt
      * @return bool
      */
-    public function validateReconnectAttempt(\Exception $e, $attempt)
+    public function validateReconnectAttempt(Exception $e, $attempt)
     {
         if ($this->getTransactionNestingLevel() <= 1 && $this->reconnectAttempts && $attempt < $this->reconnectAttempts) {
             $reconnectExceptions = $this->_driver->getReconnectExceptions();
@@ -110,7 +110,7 @@ class Connection extends \Doctrine\DBAL\Connection
                     $stmt = parent::$method();
                 }
 
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 error_log('DBAL EXCEPTION THROWN [' . $this->getTransactionNestingLevel() . ']:' . $e->getMessage());
                 if ($this->validateReconnectAttempt($e, $attempt)) {
                     error_log('    OK - successfully validated');

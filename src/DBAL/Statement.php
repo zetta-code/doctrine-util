@@ -7,7 +7,7 @@
 namespace Zetta\DoctrineUtil\DBAL;
 
 use Doctrine\DBAL\DBALException;
-use PDO;
+use Exception;
 
 /**
  * Class Statement
@@ -15,6 +15,12 @@ use PDO;
  */
 class Statement extends \Doctrine\DBAL\Statement
 {
+    /**
+     * Represents the SQL CHAR, VARCHAR, or other string data type.
+     * @link https://php.net/manual/en/pdo.constants.php#pdo.constants.param-str
+     */
+    const PARAM_STR = 2;
+
     /**
      * @var array
      */
@@ -60,7 +66,7 @@ class Statement extends \Doctrine\DBAL\Statement
             $retry = false;
             try {
                 $stmt = $this->stmt->execute($params);
-            } catch (\Exception $ex) {
+            } catch (Exception $ex) {
                 if ($this->conn instanceof Connection && $this->conn->validateReconnectAttempt($ex, $attempt)) {
                     $this->conn->close();
                     $this->resetStatement();
@@ -103,7 +109,7 @@ class Statement extends \Doctrine\DBAL\Statement
     /**
      * @inheritdoc
      */
-    public function bindParam($name, &$var, $type = PDO::PARAM_STR, $length = null)
+    public function bindParam($name, &$var, $type = self::PARAM_STR, $length = null)
     {
         $this->_params[$name] = ['value' => &$var, 'type' => $type, 'length' => $length];
         return parent::bindParam($name, $value, $type, $length);
