@@ -11,8 +11,8 @@ class DoctrineObject extends \DoctrineModule\Stdlib\Hydrator\DoctrineObject
     /**
      * No handle various type conversions
      *
-     * @param  mixed $value
-     * @param  string $typeOfField
+     * @param mixed $value
+     * @param string $typeOfField
      * @return mixed
      */
     protected function handleTypeConversions($value, $typeOfField)
