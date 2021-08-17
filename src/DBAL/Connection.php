@@ -1,8 +1,11 @@
 <?php
+
 /**
- * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @link      https://github.com/zetta-code/doctrine-util for the canonical source repository
  * @copyright Copyright (c) 2018 Zetta Code
  */
+
+declare(strict_types=1);
 
 namespace Zetta\DoctrineUtil\DBAL;
 
@@ -74,7 +77,7 @@ class Connection extends \Doctrine\DBAL\Connection
         if ($this->getTransactionNestingLevel() <= 1 && $this->reconnectAttempts && $attempt < $this->reconnectAttempts) {
             $reconnectExceptions = $this->_driver->getReconnectExceptions();
             $message = $e->getMessage();
-            if (!empty($reconnectExceptions)) {
+            if (! empty($reconnectExceptions)) {
                 foreach ($reconnectExceptions as $reconnectException) {
                     if (strpos($message, $reconnectException) !== false) {
                         return true;
@@ -109,7 +112,6 @@ class Connection extends \Doctrine\DBAL\Connection
                 } else {
                     $stmt = parent::$method();
                 }
-
             } catch (Exception $e) {
                 error_log('DBAL EXCEPTION THROWN [' . $this->getTransactionNestingLevel() . ']:' . $e->getMessage());
                 if ($this->validateReconnectAttempt($e, $attempt)) {

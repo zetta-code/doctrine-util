@@ -1,12 +1,17 @@
 <?php
+
 /**
- * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @link      https://github.com/zetta-code/doctrine-util for the canonical source repository
  * @copyright Copyright (c) 2018 Zetta Code
  */
 
+declare(strict_types=1);
+
 namespace Zetta\DoctrineUtil\Hydrator;
 
-class DoctrineObject extends \DoctrineModule\Stdlib\Hydrator\DoctrineObject
+use Doctrine\Laminas\Hydrator\DoctrineObject;
+
+class NoHandleTypeConversion extends DoctrineObject
 {
     /**
      * No handle various type conversions

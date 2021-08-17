@@ -1,12 +1,16 @@
 <?php
+
 /**
- * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @link      https://github.com/zetta-code/doctrine-util for the canonical source repository
  * @copyright Copyright (c) 2018 Zetta Code
  */
 
+declare(strict_types=1);
+
 namespace Zetta\DoctrineUtil;
 
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
 class ConfigProvider implements ConfigProviderInterface
 {
@@ -25,14 +29,14 @@ class ConfigProvider implements ConfigProviderInterface
         return [
             'doctrine' => [
                 'driver' => [
-                    'zetta_doctrineutil_entities' => [
-                        'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                    __NAMESPACE__ . '_driver' => [
+                        'class' => AnnotationDriver::class,
                         'cache' => 'array',
-                        'paths' => [__DIR__ . '/Entity'],
+                        'paths' => [dirname(__DIR__) . '/src/Entity'],
                     ],
                     'orm_default' => [
                         'drivers' => [
-                            'Zetta\DoctrineUtil' => 'zetta_doctrineutil_entities',
+                            __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
                         ],
                     ],
                 ],

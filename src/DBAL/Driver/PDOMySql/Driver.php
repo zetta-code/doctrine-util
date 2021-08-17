@@ -1,8 +1,11 @@
 <?php
+
 /**
- * @link      http://github.com/zetta-repo/zetta-doctrineutil for the canonical source repository
- * @copyright Copyright (c) 2017 Zetta Code
+ * @link      https://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @copyright Copyright (c) 2018 Zetta Code
  */
+
+declare(strict_types=1);
 
 namespace Zetta\DoctrineUtil\DBAL\Driver\PDOMySql;
 
@@ -30,5 +33,4 @@ class Driver extends \Doctrine\DBAL\Driver\PDOMySql\Driver
     {
         return stristr($x->getMessage(), 'php_network_getaddresses') !== false;
     }
-
 }

@@ -1,17 +1,20 @@
 <?php
+
 /**
- * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @link      https://github.com/zetta-code/doctrine-util for the canonical source repository
  * @copyright Copyright (c) 2018 Zetta Code
  */
+
+declare(strict_types=1);
 
 namespace Zetta\DoctrineUtil\Paginator;
 
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrineORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Zend\Paginator\Paginator as ZendPaginator;
+use Laminas\Paginator\Paginator as LaminasPaginator;
 
-class Paginator extends ZendPaginator
+class Paginator extends LaminasPaginator
 {
     /**
      * Paginator constructor.

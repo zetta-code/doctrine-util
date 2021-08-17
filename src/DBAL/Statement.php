@@ -1,8 +1,11 @@
 <?php
+
 /**
- * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @link      https://github.com/zetta-code/doctrine-util for the canonical source repository
  * @copyright Copyright (c) 2018 Zetta Code
  */
+
+declare(strict_types=1);
 
 namespace Zetta\DoctrineUtil\DBAL;
 
@@ -89,10 +92,10 @@ class Statement extends \Doctrine\DBAL\Statement
         if ($logger) {
             $logger->stopQuery();
         }
-        $this->_params = array();
-        $this->_values = array();
-        $this->params = array();
-        $this->types = array();
+        $this->_params = [];
+        $this->_values = [];
+        $this->params = [];
+        $this->types = [];
 
         return $stmt;
     }

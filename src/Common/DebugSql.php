@@ -1,8 +1,11 @@
 <?php
+
 /**
- * @link      http://github.com/zetta-code/doctrine-util for the canonical source repository
+ * @link      https://github.com/zetta-code/doctrine-util for the canonical source repository
  * @copyright Copyright (c) 2018 Zetta Code
  */
+
+declare(strict_types=1);
 
 namespace Zetta\DoctrineUtil\Common;
 
@@ -28,7 +31,7 @@ final class DebugSql
      */
     private static function getParamsArray(ArrayCollection $paramObj): array
     {
-        $parameters = array();
+        $parameters = [];
         /* @var $val Parameter */
         foreach ($paramObj as $val) {
             $parameters[$val->getName()] = $val->getValue();
@@ -53,20 +56,22 @@ final class DebugSql
             if ($sql[$i] == '?') {
                 $nameParam = array_shift($paramsList);
 
-                if (!isset($paramsArr[$nameParam])) {
+                if (! isset($paramsArr[$nameParam])) {
                     $fullSql .= ':' . $nameParam;
                 } elseif (is_string($paramsArr[$nameParam])) {
                     $fullSql .= '"' . addslashes($paramsArr[$nameParam]) . '"';
                 } elseif (is_array($paramsArr[$nameParam])) {
                     $sqlArr = '';
                     foreach ($paramsArr[$nameParam] as $var) {
-                        if (!empty($sqlArr))
+                        if (! empty($sqlArr)) {
                             $sqlArr .= ',';
+                        }
 
                         if (is_string($var)) {
                             $sqlArr .= '"' . addslashes($var) . '"';
-                        } else
+                        } else {
                             $sqlArr .= $var;
+                        }
                     }
                     $fullSql .= $sqlArr;
                 } elseif (is_object($paramsArr[$nameParam])) {
@@ -77,10 +82,9 @@ final class DebugSql
                     } else {
                         $fullSql .= $paramsArr[$nameParam]->__toString();
                     }
-
-                } else
+                } else {
                     $fullSql .= $paramsArr[$nameParam];
-
+                }
             } else {
                 $fullSql .= $sql[$i];
             }
@@ -96,7 +100,7 @@ final class DebugSql
     {
         $parsedDql = preg_split('/:/', $dql);
         $length = count($parsedDql);
-        $parameters = array();
+        $parameters = [];
         for ($i = 1; $i < $length; $i++) {
             if (preg_match('/^[a-zA-Z]+$/', $parsedDql[$i][0])) {
                 $param = (preg_split('/[\' )]/', $parsedDql[$i]));
